@@ -34,8 +34,8 @@ function App() {
               let x = calculatePay(start, leave, bedtime);
               setPay(x);
             } catch (e) {
-              setError(e);
-              console.log(e);
+              setError(e.message);
+              console.log(e.message);
             }
           }}
         >
