@@ -23,6 +23,9 @@ export function validStartTime(time: String) {
     if (bedtime < start && bedtime > end) {
       return false;
     }
+    if (convertTime(start) < convertTime("04:00") && convertTime(bedtime) > convertTime("04:00")){
+        return false;
+    }
     return true;
   }
 
@@ -77,7 +80,7 @@ export function midnightToEnd(start: String, end: String){
 
     }
     if (!validBedTime(start, end, bedtime)) {
-      throw new Error('Invalid bed time')
+      throw new Error('Invalid bed time - Bed time must be between start and end time')
     }
 
     return startToMidnight(start) - bedToMidnightDifferenceDollars(bedtime) + midnightToEnd(start, end)

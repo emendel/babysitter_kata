@@ -88,9 +88,15 @@ test("start at 05:00 PM, bed at 10:00 PM end at 4:00 AM equals 76", () => {
   expect(calculatePay("23:00", "04:00", "00:00")).toEqual(64 + 12);
 });
 
-test("start at 11:00 PM, bed at 10:00 PM AM throws error", () => {
+test("start at 11:00 PM, bed at 10:00 PM throws error", () => {
   expect(() => {
     calculatePay("23:00", "04:00", "22:00");
+  }).toThrow("Invalid bed time");
+});
+
+test("start at 12:00 AM, bed at 10:00 PM throws error", () => {
+  expect(() => {
+    calculatePay("00:00", "04:00", "22:00");
   }).toThrow("Invalid bed time");
 });
 
