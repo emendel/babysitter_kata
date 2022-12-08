@@ -94,12 +94,6 @@ test("start at 11:00 PM, bed at 10:00 PM AM throws error", () => {
   }).toThrow("Invalid bed time");
 });
 
-test("start at 12:00 AM, bed at 10:00 PM AM throws error", () => {
-  expect(() => {
-    calculatePay("00:00", "04:00", "22:00");
-  }).toThrow("Invalid bed time");
-});
-
 test("max pay should return 148", () => {
   expect(startToMidnight("17:00")).toEqual(84);
   expect(bedToMidnightDifferenceDollars("04:00")).toEqual(0);

@@ -1,13 +1,7 @@
-import logo from "./logo.svg";
 import "./App.css";
 import TimePicker from "react-time-picker";
 import { useState } from "react";
-import {
-  validStartTime,
-  validBedTime,
-  validLeaveTime,
-  calculatePay,
-} from "./time.ts";
+import { calculatePay } from "./time.ts";
 
 function App() {
   const [start, setStart] = useState("17:00");
@@ -17,7 +11,7 @@ function App() {
   const [error, setError] = useState("");
 
   function returnResponse() {
-    return error == "" ? "You will make " + pay + " dollars" : error;
+    return error === "" ? "You will make " + pay + " dollars" : error;
   }
 
   return (

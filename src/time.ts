@@ -70,14 +70,14 @@ export function midnightToLeave(start: String, leave: String){
   export function calculatePay(start: String, leave: String, bedtime: String): number {
     // let num = 12 * 7 + 16 * 4
     if (!validStartTime(start)) {
-      throw 'Invalid start time'
+      throw new Error('Invalid start time')
     }
     if (!validEndTime(leave, start)) {
-      throw 'Invalid leave time'
+      throw new Error('Invalid leave time')
 
     }
     if (!validBedTime(start, leave, bedtime)) {
-      throw 'Invalid bed time'
+      throw new Error('Invalid bed time')
     }
 
     return startToMidnight(start) - bedToMidnightDifferenceDollars(bedtime) + midnightToLeave(start, leave)
