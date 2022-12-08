@@ -35,43 +35,7 @@ export function validStartTime(time: String) {
     return converted;
   }
 
-//   export function startToMidnight(start: String){
-//     if (convertTime(start) < convertTime("04:00")){
-//         return 0
-//     }
-
-//     else {
-//         return Math.floor((1440 - convertTime(start)) / 60) * 12
-//     }
-
-//   }
-
-//   export function bedToMidnightDifferenceDollars(bedtime: String) : number{
-//     if (convertTime(bedtime) <= convertTime("04:00")){
-//         return 0
-//     }  
-//     else{
-//         return Math.floor((1440 - convertTime(bedtime)) / 60) * 4
-//     }
-// }
-
-// export function midnightToEnd(start: String, end: String){
-//     if (convertTime(end) > convertTime("04:00")){
-//         return 0
-//     }
-//     else{
-//         if (convertTime(start) < convertTime("03:00")){
-//             return Math.floor((convertTime(end) - convertTime(start)) / 60) * 16
-//         }
-//     }
-//     return Math.floor(convertTime(end) / 60) * 16
-
-//   }
-
-
-
   export function calculatePay(start: String, end: String, bedtime: String): number {
-    // let num = 12 * 7 + 16 * 4
     if (!validStartTime(start)) {
       throw new Error('Invalid start time')
     }
@@ -82,15 +46,13 @@ export function validStartTime(time: String) {
     if (!validBedTime(start, end, bedtime)) {
       throw new Error('Invalid bed time - Bed time must be between start and end time')
     }
-    // let calc1 = startToMidnight(start) - bedToMidnightDifferenceDollars(bedtime) + midnightToEnd(start, end)
     let calc2 = newCalc(start, end, bedtime)
     return calc2
   }
 
+  // Every 60 minutes add rate to sum. Change rate based on the time according to rules.
   export function newCalc(start: String, end : String, bedtime : String){
-    let c_start = convertTime(start)
-    let c_bed = convertTime(bedtime)
-    let c_end = convertTime(end)
+
     let rate = 12
     let sum = 0
     let m = {}
@@ -103,9 +65,9 @@ export function validStartTime(time: String) {
         }
     }
 
-    let x = m[c_start]
-    while (x <= m[c_end]-60){
-        if (x >= m[c_bed]){
+    let x = m[convertTime(start)]
+    while (x <= m[convertTime(end)]-60){
+        if (x >= m[convertTime(bedtime)]){
             rate = 8
         }
         if (x >= 420){

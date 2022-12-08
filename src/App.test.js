@@ -15,8 +15,8 @@ test("Valid Start time should return true", () => {
   expect(validStartTime("18:00")).toEqual(true);
 });
 
-test("start at 11:01 end at 12:59 equals 0", () => {
-  expect(calculatePay("23:01", "00:59", "00:00")).toEqual(0);
+test("start at 11:01 end at 12:59 equals 12", () => {
+  expect(calculatePay("23:01", "00:59", "00:00")).toEqual(12);
 });
 
 test("max pay should return 148", () => {
@@ -25,6 +25,18 @@ test("max pay should return 148", () => {
 
 test("start at 1:00 AM, end at 4:00 AM equals 48", () => {
   expect(calculatePay("01:00", "04:00", "00:00")).toEqual(48);
+});
+
+test("start at 2:30 AM, end at 4:00 AM equals 16", () => {
+  expect(calculatePay("02:30", "04:00", "00:00")).toEqual(16);
+});
+
+test("start at 8:00 PM, end at 2:00 AM, bed at 10:00 PM equals 72", () => {
+  expect(calculatePay("20:00", "02:00", "22:00")).toEqual(72);
+});
+
+test("start at 8:00 PM, end at 2:00 AM, bed at 12:00 AM equals 48", () => {
+  expect(calculatePay("20:00", "02:00", "00:00")).toEqual(80);
 });
 
 test("start at 11:00 PM, end at 4:00 AM equals 76", () => {
