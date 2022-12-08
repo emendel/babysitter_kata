@@ -1,23 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import TimePicker from "react-time-picker";
+import { useState } from "react";
+import {
+  validStartTime,
+  validBedTime,
+  validLeaveTime,
+  calculatePay,
+} from "./time.ts";
 
 function App() {
+  const [start, setStart] = useState("17:00");
+  const [leave, setLeave] = useState("04:00");
+  const [bedtime, setBedTime] = useState("04:00");
+  const [pay, setPay] = useState(0);
+  const [error, setError] = useState("");
+
+  function returnResponse() {
+    return error == "" ? "You will make " + pay + " dollars" : error;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <p>Babysitter Kata</p>
+      <div>
+        What time will you start?
+        <TimePicker onChange={setStart} value={start} disableClock={true} />
+        <br />
+        When is bedtime?
+        <TimePicker onChange={setBedTime} value={bedtime} disableClock={true} />
+        <br />
+        What time will you leave?
+        <TimePicker onChange={setLeave} value={leave} disableClock={true} />
+        <br />
+        <button
+          onClick={() => {
+            setError("");
+            try {
+              let x = calculatePay(start, leave, bedtime);
+              setPay(x);
+            } catch (e) {
+              setError(e);
+              console.log(e);
+            }
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Submit
+        </button>
+        <br />
+        {returnResponse()}
+      </div>
     </div>
   );
 }
