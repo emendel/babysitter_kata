@@ -5,7 +5,7 @@ import { calculatePay } from "./time.ts";
 
 function App() {
   const [start, setStart] = useState("17:00");
-  const [leave, setLeave] = useState("04:00");
+  const [end, setEnd] = useState("04:00");
   const [bedtime, setBedTime] = useState("04:00");
   const [pay, setPay] = useState(0);
   const [error, setError] = useState("");
@@ -24,14 +24,14 @@ function App() {
         When is bedtime?
         <TimePicker onChange={setBedTime} value={bedtime} disableClock={true} />
         <br />
-        What time will you leave?
-        <TimePicker onChange={setLeave} value={leave} disableClock={true} />
+        What time will you end?
+        <TimePicker onChange={setEnd} value={end} disableClock={true} />
         <br />
         <button
           onClick={() => {
             setError("");
             try {
-              let x = calculatePay(start, leave, bedtime);
+              let x = calculatePay(start, end, bedtime);
               setPay(x);
             } catch (e) {
               setError(e.message);

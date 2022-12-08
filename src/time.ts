@@ -19,8 +19,8 @@ export function validStartTime(time: String) {
     return true;
   }
 
-  export function validBedTime(start: String, leave: String, bedtime: String) {
-    if (bedtime < start && bedtime > leave) {
+  export function validBedTime(start: String, end: String, bedtime: String) {
+    if (bedtime < start && bedtime > end) {
       return false;
     }
     return true;
@@ -52,34 +52,34 @@ export function validStartTime(time: String) {
     }
 }
 
-export function midnightToLeave(start: String, leave: String){
-    if (convertTime(leave) > convertTime("04:00")){
+export function midnightToEnd(start: String, end: String){
+    if (convertTime(end) > convertTime("04:00")){
         return 0
     }
     else{
         if (convertTime(start) < convertTime("03:00")){
-            return Math.floor((convertTime(leave) - convertTime(start)) / 60) * 16
+            return Math.floor((convertTime(end) - convertTime(start)) / 60) * 16
         }
     }
-    return Math.floor(convertTime(leave) / 60) * 16
+    return Math.floor(convertTime(end) / 60) * 16
 
   }
 
 
 
-  export function calculatePay(start: String, leave: String, bedtime: String): number {
+  export function calculatePay(start: String, end: String, bedtime: String): number {
     // let num = 12 * 7 + 16 * 4
     if (!validStartTime(start)) {
       throw new Error('Invalid start time')
     }
-    if (!validEndTime(leave, start)) {
-      throw new Error('Invalid leave time')
+    if (!validEndTime(end, start)) {
+      throw new Error('Invalid end time')
 
     }
-    if (!validBedTime(start, leave, bedtime)) {
+    if (!validBedTime(start, end, bedtime)) {
       throw new Error('Invalid bed time')
     }
 
-    return startToMidnight(start) - bedToMidnightDifferenceDollars(bedtime) + midnightToLeave(start, leave)
+    return startToMidnight(start) - bedToMidnightDifferenceDollars(bedtime) + midnightToEnd(start, end)
     
   }
